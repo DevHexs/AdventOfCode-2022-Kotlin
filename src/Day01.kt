@@ -1,17 +1,37 @@
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+
+    val maxCaloriesPerElf = mutableListOf<Int>()
+
+    fun part1(): Int{
+
+        var calories = 0
+
+        val input = readInput("Day01")
+        for(i in input){
+            if (i != "") {
+                calories += i.toInt()
+            }
+            else{
+                maxCaloriesPerElf.add(calories)
+                calories = 0
+            }
+        }
+        maxCaloriesPerElf.add(calories)
+        return maxCaloriesPerElf.max()
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
+    fun part2(): Int{
+        var topCalories = 0
+
+        for (i in 1..3){
+            val value = maxCaloriesPerElf.max()
+            topCalories += value
+            maxCaloriesPerElf.remove(value)
+        }
+
+        return topCalories
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    println(part1())
+    println(part2())
 }
